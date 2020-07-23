@@ -12,8 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 /**
  * @author bo bo
@@ -31,7 +30,12 @@ public class MqttMessageHandler {
 
     private Logger logger = LoggerFactory.getLogger("mqttLog");
 
-    private ExecutorService threadPools = Executors.newFixedThreadPool(300);
+    //自动创建线程池，有缺点。消息发送时如果过多，会导致日志打印MQ发送消息失败问题，但是其实不是MQBroken的问题，是线程吃的问题
+    //private ExecutorService threadPools = Executors.newFixedThreadPool(300);
+
+    //手动创建线程池，阿里开发规范推荐
+    private ThreadPoolExecutor threadPools = new ThreadPoolExecutor(10, 20, 120, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<Runnable>());
 
     /**
      * 消息处理

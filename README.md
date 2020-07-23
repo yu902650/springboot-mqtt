@@ -27,3 +27,17 @@ MQ 只要分为三部分：
 我这个代码只是简单的使用，中间你可以按照实际的需求去做消息加密，自己实现一些特殊的功能。
 
 喜欢就给个⭐Start⭐吧
+
+
+#### 2020年7月23日 
+MqttMessageHandler.java 
+```
+    /**
+      *自动创建线程池，有缺点。消息发送时如果过多，会导致日志打印MQ发送消息失败问题，但是其实不是MQBroken的问题，是线程池的问题
+      */ 
+    private ExecutorService threadPools = Executors.newFixedThreadPool(300);
+
+    //手动创建线程池，阿里开发规范推荐
+    private ThreadPoolExecutor threadPools = new ThreadPoolExecutor(10, 20, 120, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<Runnable>());
+```
