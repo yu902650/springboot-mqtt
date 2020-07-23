@@ -31,6 +31,7 @@ import static org.fusesource.mqtt.client.QoS.AT_MOST_ONCE;
  * @Description: impl
  */
 @Service
+@Component
 public class MqttService implements IMqttService {
     public static byte[] payload;
 

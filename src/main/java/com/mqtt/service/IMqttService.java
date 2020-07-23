@@ -2,6 +2,7 @@ package com.mqtt.service;
 
 import com.mqtt.bean.MqttMessage;
 import org.fusesource.mqtt.client.QoS;
+import org.springframework.stereotype.Component;
 
 /**
  * @author bo bo
@@ -11,6 +12,7 @@ import org.fusesource.mqtt.client.QoS;
  * @version: V1.0
  * @Description: impl
  */
+@Component
 public interface IMqttService {
 
     /**
